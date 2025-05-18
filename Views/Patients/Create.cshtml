@@ -1,0 +1,13 @@
+﻿@model WebApplication1.Models.Patient
+
+@{
+    Layout = "~/Views/Shared/_MedaCoreLayout.cshtml";
+    ViewData["Title"] = "Thêm mới bệnh nhân";
+    ViewData["Action"] = "Create"; // Action for the form submission
+    ViewData["SubmitButtonText"] = "Thêm mới"; // Button text
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+    @await Html.PartialAsync("_PatientFormPartial", Model)
+</div>

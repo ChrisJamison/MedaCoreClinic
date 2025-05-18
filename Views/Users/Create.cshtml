@@ -1,0 +1,13 @@
+﻿@model WebApplication1.Models.User
+
+@{
+    Layout = "~/Views/Shared/_MedaCoreLayout.cshtml";
+    ViewData["Title"] = "Thêm mới tài khoản";
+    ViewData["Action"] = "Create"; // Action for the form submission
+    ViewData["SubmitButtonText"] = "Thêm mới"; // Button text
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+    @await Html.PartialAsync("_UserFormPartial", Model)
+</div>

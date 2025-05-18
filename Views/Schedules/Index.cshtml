@@ -1,0 +1,98 @@
+﻿@model List<WebApplication1.Models.Schedule>
+
+@{
+    Layout = "~/Views/Shared/_NormalUserLayout.cshtml";
+    ViewData["Title"] = "Lịch sử khám bệnh";
+    var currentPage = ViewBag.CurrentPage as int? ?? 1;
+    var totalPages = ViewBag.TotalPages as int? ?? 1;
+}
+
+<h2 class="mb-4">Lịch sử khám bệnh</h2>
+
+<div class="mb-3">
+    <a href="/Schedules/Create" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i>Đăng ký khám bệnh
+    </a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Bệnh nhân</th>
+            <th scope="col">Số điện thoại</th>
+            <th scope="col">Bác sỹ</th>
+            <th scope="col">Ngày hẹn</th>
+            <th scope="col">Giờ hẹn</th>
+            @* <th scope="col">Thao tác</th> *@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var schedule in Model)
+        {
+            <tr>
+                <td>@schedule.Id</td>
+                <td>@schedule.PatientId</td>
+                <td>@schedule.PhoneNumber</td>
+                <td>@schedule.DoctorId</td>
+                <td>@schedule.Date</td>
+                <td>@schedule.Time</td>
+                @* <td> *@
+                @*     <!-- Edit Action --> *@
+                @*     <a href="/Patients/Edit/@schedule.Id" class="btn btn-outline-primary btn-sm"> *@
+                @*         <i class="bi bi-pencil"></i> Edit *@
+                @*     </a> *@
+                @*     <!-- Delete Action --> *@
+                @*     <form asp-action="DeleteConfirmed" asp-controller="Patients" method="post" style="display:inline" onsubmit="return confirmDelete(event)"> *@
+                @*         <input type="hidden" name="id" value="@schedule.Id"/> *@
+                @*         <button type="submit" class="btn btn-outline-danger btn-sm"> *@
+                @*             <i class="bi bi-trash"></i> Delete *@
+                @*         </button> *@
+                @*     </form> *@
+                @* </td> *@
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Pagination -->
+@if (totalPages > 1)
+{
+    <nav>
+        <ul class="pagination">
+            @if (currentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/Patients?page=@(currentPage - 1)">Previous</a>
+                </li>
+            }
+
+            @for (var pageA = 1; pageA <= totalPages; pageA++)
+            {
+                <li class="page-item @(pageA == currentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", "Patients", new { page = pageA })">@pageA</a>
+                </li>
+            }
+
+            @if (currentPage < totalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", "Patients", new { page = currentPage + 1 })">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
+@* <script> *@
+@*     function confirmDelete(event) { *@
+@*         // Display a confirmation prompt *@
+@*         const confirmation = confirm("Bạn có chắc chắn muốn xóa bệnh nhân này không?"); *@
+@*         if (!confirmation) { *@
+@*             // If the user cancels, prevent the form submission *@
+@*             event.preventDefault(); *@
+@*             return false; *@
+@*         } *@
+@*         return true; // Allow form submission for deletion *@
+@*     } *@
+@* </script> *@

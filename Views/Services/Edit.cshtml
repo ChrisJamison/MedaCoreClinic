@@ -1,0 +1,13 @@
+﻿@model WebApplication1.Models.Service
+
+@{
+    Layout = "~/Views/Shared/_MedaCoreLayout.cshtml";
+    ViewData["Title"] = "Sửa Thông Tin Dịch Vụ";
+    ViewData["Action"] = "Edit"; // Action for the form submission
+    ViewData["SubmitButtonText"] = "Lưu"; // Button text
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+    @await Html.PartialAsync("_ServiceFormPartial", Model)
+</div>

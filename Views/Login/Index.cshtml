@@ -1,0 +1,60 @@
+﻿@model WebApplication1.Models.User
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container d-flex flex-column align-items-center justify-content-center" style="min-height: 80vh;">
+    <div class="card shadow-lg" style="width: 100%; max-width: 400px;">
+        <div class="card-header text-center" style="background-color: #007bff; color: white;">
+            <h4>Đăng Nhập Tài Khoản</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-action="Index" asp-controller="Login">
+                <!-- Username Field -->
+                <div class="mb-3">
+                    <label for="Username" class="form-label">Tên Tài Khoản</label>
+                    <input
+                        type="text"
+                        id="Username"
+                        name="Username"
+                        class="form-control"
+                        asp-for="Username"
+                        placeholder="Nhập tên tài khoản của bạn"
+                        required />
+                </div>
+
+                <!-- Password Field -->
+                <div class="mb-3">
+                    <label for="Password" class="form-label">Mật Khẩu</label>
+                    <input
+                        type="password"
+                        id="Password"
+                        name="Password"
+                        class="form-control"
+                        asp-for="Password"
+                        placeholder="Nhập mật khẩu của bạn"
+                        required />
+                </div>
+
+                <!-- Error Message -->
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger text-center" role="alert">
+                        @ViewBag.Error
+                    </div>
+                }
+
+                <!-- Login Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Đăng Nhập</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Optional: Links -->
+    @* <div class="mt-3 text-center"> *@
+    @*     <p>Don't have an account? <a asp-controller="Login" asp-action="Register">Register here</a></p> *@
+    @* </div> *@
+</div>

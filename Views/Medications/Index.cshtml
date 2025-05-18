@@ -1,0 +1,105 @@
+﻿@model List<WebApplication1.Models.Medication>
+
+    @{
+    Layout = "~/Views/Shared/_MedaCoreLayout.cshtml";
+    ViewData["Title"] = "Quản lý thuốc";
+    var currentPage = ViewBag.CurrentPage as int? ?? 1;
+    var totalPages = ViewBag.TotalPages as int? ?? 1;
+    }
+
+    <h2 class="mb-4">Danh sách thuốc</h2>
+
+    <div class="mb-3">
+        <a href="/Medications/Create" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Thêm mới
+        </a>
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Tên thuốc</th>
+            <th scope="col">Đơn vị</th>
+            <th scope="col">Giá thuốc</th>
+            <th scope="col">Cách sử dụng</th>
+            <th scope="col">Hoạt chất</th>
+            <th scope="col">Hàm lượng</th>
+            <th scope="col">Quy cách đóng gói</th>
+            <th scope="col">Đơn vị sản xuất</th>
+            <th scope="col">Đơn vị kê khai</th>
+            <th scope="col">Thao tác</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var medication in Model)
+        {
+        <tr>
+            <td>@medication.Id</td>
+            <td>@medication.Name</td>
+            <td>@medication.Unit</td>
+            <td>@medication.Price.ToString("C")</td>
+            <td>@medication.HowToUse</td>
+            <td>@medication.ActiveIngredient</td>
+            <td>@medication.Concentration</td>
+            <td>@medication.Packaging</td>
+            <td>@medication.Manufacturer</td>
+            <td>@medication.Declarer</td>
+            <td>
+                <!-- Edit Action -->
+                <a href="/Medications/Edit/@medication.Id" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-pencil"></i> Sửa
+                </a>
+                <form asp-action="DeleteConfirmed" asp-controller="Medications" method="post" style="display:inline" onsubmit="return confirmDelete(event)">
+                    <input type="hidden" name="id" value="@medication.Id" />
+                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        }
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    @if (totalPages > 1)
+    {
+    <nav>
+        <ul class="pagination">
+            @if (currentPage > 1)
+            {
+            <li class="page-item">
+                <a class="page-link" href="/Patients?page=@(currentPage - 1)">Previous</a>
+            </li>
+            }
+
+            @for (var pageA = 1; pageA <= totalPages; pageA++)
+            {
+            <li class="page-item @(pageA == currentPage ? "active" : "")">
+            <a class="page-link" href="@Url.Action("Index", "Medications", new { page = pageA })">@pageA</a>
+            </li>
+            }
+
+            @if (currentPage < totalPages)
+            {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", "Medications", new { page = currentPage + 1 })">Next</a>
+            </li>
+            }
+        </ul>
+    </nav>
+    }
+
+    <script>
+        function confirmDelete(event) {
+            // Display a confirmation prompt
+            const confirmation = confirm("Bạn có chắc chắn muốn xóa thuốc này không?");
+            if (!confirmation) {
+                // If the user cancels, prevent the form submission
+                event.preventDefault();
+                return false;
+            }
+            return true; // Allow form submission for deletion
+        }
+    </script>

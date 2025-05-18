@@ -1,0 +1,46 @@
+﻿@model WebApplication1.Models.Schedule
+
+<div class="container mt-4">
+    <form method="post" asp-action="@ViewData["Action"]">
+        <div class="mb-3">
+            <label for="PatientId" class="form-label">Họ Tên bệnh nhân</label>
+            <input type="text" id="PatientId" name="PatientId" class="form-control" 
+                   placeholder="Nhập họ tên bệnh nhân" value="@Model?.PatientId" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="PhoneNumber" class="form-label">Số Điện Thoại</label>
+            <input type="tel" id="PhoneNumber" name="PhoneNumber" class="form-control" 
+                   placeholder="Nhập số điện thoại" value="@Model?.PhoneNumber" 
+                   required pattern="[0-9]{10}" />
+        </div>
+
+        <div class="mb-3">
+            <label for="DoctorId" class="form-label">Bác Sỹ</label>
+            <select id="DoctorId" name="DoctorId" class="form-select" required>
+                <option value="" selected="@((Model?.DoctorId == null).ToString())">-- Chọn Bác Sỹ --</option>
+                <option value="Nguyen Van A" selected="@((Model?.DoctorId == "Nguyen Van A<").ToString())">Nguyen Van A</option>
+                <option value="Tran Thi B" selected="@((Model?.DoctorId == "Tran Thi B").ToString())">Tran Thi B</option>
+                <option value="Ho Thi My" selected="@((Model?.DoctorId == "Ho Thi My").ToString())">Ho Thi My</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="Date" class="form-label">Ngày hẹn</label>
+            <input type="date" id="Date" name="Date" class="form-control"
+                   value="@Model?.Date" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Time" class="form-label">Ngày hẹn</label>
+            <input type="time" id="Time" name="TimeString" class="form-control"
+                   value="@Model?.Time" required />
+        </div>
+        
+
+        <div class="d-flex justify-content-between align-items-center">
+            <button type="submit" class="btn btn-primary">@ViewData["SubmitButtonText"]</button>
+            <a href="@Url.Action("Index", "Schedules")" class="btn btn-secondary">Hủy Bỏ</a>
+        </div>
+    </form>
+</div>

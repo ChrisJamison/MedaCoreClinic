@@ -1,0 +1,63 @@
+﻿@model WebApplication1.Models.Medication
+
+<div class="container mt-4">
+    <form method="post" asp-action="@ViewData["Action"]" enctype="application/x-www-form-urlencoded">
+        <div class="mb-3">
+            <label for="Name" class="form-label">Tên thuốc</label>
+            <input type="text" id="Name" name="Name" class="form-control"
+                   placeholder="Nhập tên thuốc" value="@Model?.Name" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Unit" class="form-label">Đơn vị</label>
+            <input type="text" id="Unit" name="Unit" class="form-control"
+                   placeholder="Nhập đơn vị" value="@Model?.Unit " required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Price" class="form-label">Giá thuốc</label>
+            <input type="number" id="Price" name="Price" class="form-control"
+                   placeholder="Nhập giá thuốc" step="0.01" value="@Model?.Price" required />
+
+        </div>
+        <div class="mb-3">
+            <label for="HowToUse" class="form-label">Cách sử dụng</label>
+            <textarea id="HowToUse" name="HowToUse" class="form-control" rows="3"
+                      placeholder="Nhập cách sử dụng">@Model?.HowToUse</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="ActiveIngredient" class="form-label">Hoạt chất</label>
+            <input type="text" id="ActiveIngredient" name="ActiveIngredient" class="form-control"
+                   placeholder="Nhập hoạt chất" value="@Model?.ActiveIngredient" required />
+        </div>
+        <div class="mb-3">
+            <label for="Concentration" class="form-label">Hàm lượng</label>
+            <input type="text" id="Concentration" name="Concentration" class="form-control"
+                   placeholder="Nhập hàm lượng" value="@Model?.Concentration" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Packaging" class="form-label">Quy cách đóng gói</label>
+            <input type="text" id="Packaging" name="Packaging" class="form-control"
+                   placeholder="Nhập quy cách đóng gói" value="@Model?.Packaging" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Manufacturer" class="form-label">Đơn vị sản xuất</label>
+            <input type="text" id="Manufacturer" name="Manufacturer" class="form-control"
+                   placeholder="Nhập đơn vị sản xuất" value="@Model?.Manufacturer" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Declarer" class="form-label">Đơn vị kê khai</label>
+            <input type="text" id="Declarer" name="Declarer" class="form-control"
+                   placeholder="Nhập đơn vị kê khai" value="@Model?.Declarer" required />
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <button type="submit" class="btn btn-primary">@ViewData["SubmitButtonText"]</button>
+            <a href="@Url.Action("Index", "Medications")" class="btn btn-secondary">Hủy Bỏ</a>
+        </div>
+    </form>
+</div>

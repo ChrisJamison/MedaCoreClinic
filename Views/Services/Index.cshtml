@@ -1,0 +1,76 @@
+﻿@model List<WebApplication1.Models.Service>
+
+@{
+    Layout = "~/Views/Shared/_MedaCoreLayout.cshtml";
+    ViewData["Title"] = "Quản lý dịch vụ";
+    var currentPage = ViewBag.CurrentPage as int? ?? 1;
+    var totalPages = ViewBag.TotalPages as int? ?? 1;
+}
+
+<h2 class="mb-4">Danh sách dịch vụ</h2>
+
+<div class="mb-3">
+    <a href="/Services/Create" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Thêm mới
+    </a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+    <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Tên dịch vụ</th>
+        <th scope="col">Giá dịch vụ</th>
+        <th scope="col">Khoa thực hiện</th>
+        <th scope="col">Mô tả</th>
+        <th scope="col">Thao tác</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var service in Model)
+    {
+    <tr>
+        <td>@service.Id</td>
+        <td>@service.Name</td>
+        <td>@service.Price.ToString("C")</td>
+        <td>@service.Department</td>
+        <td>@service.Description</td>
+        <td>
+            <a href="/Services/Edit/@service.Id" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-pencil"></i> Sửa
+            </a>
+            <form asp-action="DeleteConfirmed" asp-controller="Services" method="post" style="display:inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa dịch vụ này không?')">
+                <input type="hidden" name="id" value="@service.Id" />
+                <button type="submit" class="btn btn-outline-danger btn-sm">
+                    <i class="bi bi-trash"></i> Delete
+                </button>
+            </form>
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>
+
+@if (totalPages > 1)
+{
+    <nav>
+        <ul class="pagination">
+            @if (currentPage > 1)
+            {
+                <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Services", new { page = currentPage - 1 })">Previous</a></li>
+            }
+
+            @for (var pageA = 1; pageA <= totalPages; pageA++)
+            {
+                <li class="page-item @(pageA == currentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", "Services", new { page = pageA })">@pageA</a>
+                </li>
+            }
+
+            @if (currentPage < totalPages)
+            {
+                <li class="page-item"><a class="page-link" href="@Url.Action("Index", "Services", new { page = currentPage + 1 })">Next</a></li>
+            }
+        </ul>
+    </nav>
+}

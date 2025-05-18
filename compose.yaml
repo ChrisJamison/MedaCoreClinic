@@ -1,0 +1,6 @@
+﻿services:
+  quanlybenhvien:
+    image: quanlybenhvien
+    build:
+      context: .
+      dockerfile: Dockerfile
